@@ -35,6 +35,7 @@ namespace semestralka_konsole
         {
             bool pokracovat = true;
             uint n = 0;
+            decimal pi = 0;
             do
             {
                 Console.WriteLine("Zadejte počet iterací:");
@@ -58,8 +59,9 @@ namespace semestralka_konsole
                 }
             }
             while (pokracovat);
-            //Provedení funkce pro uživatelem zadaný počet iterací
-            Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, VypocitejPi(n));
+            //Provedení funkce pro uživatelem zadaný počet iterací a zaokrouhlení na 8 desetinných míst
+            pi = Math.Round(VypocitejPi(n), 8);
+            Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, pi);
             Console.ReadKey();
         }
     }
