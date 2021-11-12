@@ -41,12 +41,20 @@ namespace semestralka_konsole
                 try
                 {
                     n = uint.Parse(Console.ReadLine());
-                    pokracovat = false;
+                    //Stanovení podmínky počtu opakování
+                    if (n > 1000)
+                    {
+                        //Upozorní uživatele na špatný vstup
+                        Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
+                    }
+                    else
+                        //Správná hodnota n, ukončí smyčku a vypočte pi
+                        pokracovat = false;
                 }
+
                 catch (Exception e)
                 {
-                    Console.WriteLine("Zadejte prosím celé kladné číslo menší než  4 294 967 295");
-
+                    Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
                 }
             }
             while (pokracovat);
