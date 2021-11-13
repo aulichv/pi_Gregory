@@ -46,7 +46,7 @@ namespace semestralka_konsole
                     if (n > 10000000)
                     {
                         //Upozorni uzivatele na spatny vstup
-                        Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
+                        Console.WriteLine("Zadejte prosím celé kladné číslo menší než 10 000 000");
                     }
                     else
                         //Spravna hodnota n, ukonci smycku a vypocte pi
