@@ -50,15 +50,15 @@
 	\section{Postup řešení}
 	Pro součet této řady byla vytvořena metoda nazvaná VypocitejPi. Vstupní parametr je počet iterací (členů řady), pro které se má stanovit hodnota $\pi$. Parametr je datového typu uint, protože se jedná o~celé kladné číslo. Návratovou hodnotou je stanovený výsledek čísla $\pi$ datového typu decimal.
 	
-	V~metodě je využito pomocné proměnné \uv{pomocna}, která zaznamenává hodnotu zlomku. Následně je v~programu rozhodovací logika, která buď hodotu zlomku přičte nebo odečte od hodnoty proměnné \uv{soucet}. Pro liché zlomky je znaménko kladné, pro sudé záporné. 
+	V~metodě je využito pomocné proměnné \uv{pomocna}, která zaznamenává hodnotu zlomku (člena řady). Následně je v~programu rozhodovací logika, která buď hodotu zlomku přičte nebo odečte od hodnoty proměnné \uv{soucet}. V~proměnné součet je uložena aproximovaná hodnota $\pi$, která se s každou iterací přibližuje té skutečné.
 	
-	Dále je v~programu ošetřován uživatelův vstup \uv{n}, který označuje počet iterací. Ten byl zadáním omezen na 1000, stejně jako zaokrouhlení výstupu na 8 desetinných míst. V~programu je dále použitá pomocná proměnná \uv{pokracovat}, slopuží k~opakování načtení vstupu v~případě špatně zadaného vstupu (do-while cyklus).
+	Dále je v~programu ošetřován uživatelův vstup \uv{n}, který označuje počet iterací. Ten byl zadáním omezen na 10 000 000, stejně jako zaokrouhlení výstupu na 8 desetinných míst. Hodnotu 10 000 000 jsem zvolil z důvodu pomalé konvergence řady. V~programu je dále použitá pomocná proměnná \uv{pokracovat}, slouží k~opakování načtení vstupu v~případě špatně zadaného vstupu (do-while cyklus).
 	
 	\subsection{Časová složitost algoritmu}
 	Program obsahuje pouze jeden for cyklus, který se provádí n krát v~závislosti na délce uživatelova vstupu. Algoritmus tedy spadá do časové složitosti $\mathcal{O}(n)$.
 	
 	\section{Použitý software}
-	Pro tvorbu dokumentace bylo využito prostře online \LaTeX editoru Overleaf. Jako podklad byla využita šablona k~maturitní práci Gymnázia Jana Keplera, která byla graficky upravena.
+	Pro tvorbu dokumentace bylo využito prostředí online \LaTeX editoru Overleaf. Jako podklad byla využita šablona k~maturitní práci Gymnázia Jana Keplera, která byla graficky upravena.
 	
 	Programování samotné aplikace probíhalo ve vývojovém prostředí Visual Studio 2017 od společnosti Microsoft. Změny na projektu byly průběžně zaznamenávány verzovacím systémem Git a následně vkládány na server Github. Odkaz na repozitář: \url{https://github.com/aulichv/pi_Gregory.git}.
 	
@@ -79,7 +79,7 @@
                 /// Metoda, ktera pomoci rady Jamese Gregoryho
                 /// stanovy hodnotu Ludolfova cisla.
                 /// </summary>
-                /// <param name="n">Pocet iteraci (clenů rady)</param>
+                /// <param name="n">Pocet iteraci (clenu rady)</param>
                 /// <returns>Hodnota pi datoveho typu decimal</returns>
                 public static decimal VypocitejPi(uint n)
                 {
@@ -105,15 +105,15 @@
                     decimal pi = 0;
                     do
                     {
-                        Console.WriteLine("Zadejte počet iterací:");
+                        Console.WriteLine("Zadejte pocet iteraci:");
                         try
                         {
                             n = uint.Parse(Console.ReadLine());
-                            //Stanovení podminky počtu opakovani
-                            if (n > 1000)
+                            //Stanoveni podminky poctu opakovani
+                            if (n > 10000000)
                             {
                                 //Upozorni uzivatele na spatny vstup
-                                Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
+                                Console.WriteLine("Zadejte prosim cele kladne cislo mensi nez 10 000 000");
                             }
                             else
                                 //Spravna hodnota n, ukonci smycku a vypocte pi
@@ -122,13 +122,14 @@
         
                         catch (Exception e)
                         {
-                            Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
+                            Console.WriteLine("Zadejte prosim cele kladne cislo mensi nez 10 000 000");
                         }
                     }
                     while (pokracovat);
                     //Provedeni funkce pro uzivatelem zadany pocet iteraci a zaokrouhleni na 8 desetinnych mist
                     pi = Math.Round(VypocitejPi(n), 8);
-                    Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, pi);
+                    Console.WriteLine("Hodnota Ludolfova cisla pro {0} iteraci je {1}", n, pi);
+                    Console.WriteLine("Pro ukonceni programu stisknete libovolnou klavesu.");
                     Console.ReadKey();
                 }
             }
@@ -138,7 +139,7 @@
 	\section{Ukázka programu}
 	\begin{figure}[h!]
 			\centering
-			\includegraphics[width=0.8\hsize]{img/spusteni.png}
+			\includegraphics[width=0.7\hsize]{img/spusteni.png}
 			\caption{Obrazovka po spuštění programu}
 		\end{figure}
 		
@@ -159,11 +160,11 @@
 	\addcontentsline{toc}{chapter}{Závěr}
 	Při práci na projektu jsem se dozvěděl mnoho zajímavostí o~historii čísla $\pi$. Zejména o~jeho významu v~matematice a snahách o~stanovení jeho hodnoty. 
 	
-	Dále jsem rozšířil své znalosti o~sázení zdrojového kódu v~sázecím jazyce \LaTeX. Původně jsem kód vykresloval pomocí balíčku \uv{verbatim}, u~toho se mi však nepovedlo nastavit kód podle mých představ. Nakonec jsem tedy použil balíček \uv{listings}. U~něj jsem narážel na problémy s~kódem obsahujícím diakritiku.
+	Dále jsem rozšířil své znalosti o~sázení zdrojového kódu v~sázecím jazyce \LaTeX. Původně jsem kód vykresloval pomocí balíčku \uv{verbatim}, u~toho se mi však nepovedlo nastavit kód podle mých představ. Nakonec jsem tedy použil balíček \uv{listings}. U~něj jsem narážel na problémy s~kódem obsahujícím diakritiku. Ten se mi vyřešit nepodařilo, vložený kód je tedy bez diakritiky.
 	
 	K~tvorbě dokumentace jsem využíval webový nástroj Overleaf a jednotlivé verze jsem verzoval v~repozitáři umístěném na serveru Github. Nové zkušenosti jsem získal i přizpůsobením si vývojového prostředí Visual Studio.
 	
-	Práci na projektu považuji za přínosnou, domnívám se, že jsem zadání splnil.
+	Práci na projektu považuji za přínosnou a domnívám se, že jsem zadání splnil.
 
 	%%% Seznam použité literatury
 	\nocite{dokumentace}
