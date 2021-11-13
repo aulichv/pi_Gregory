@@ -61,6 +61,31 @@
 \renewcommand{\cftloftitlefont}{\Huge\bfseries}
 \renewcommand{\cfttoctitlefont}{\Huge\bfseries}
 
+%Barevná syntaxe kódu
+\usepackage{listings}
+\renewcommand{\lstlistlistingname}{Seznam kódů}% Listing -> Seznam kódů
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+\lstset{language=[Sharp]C,
+captionpos=b,
+numbers=left,
+frame=lines,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+morekeywords={partial, var, value, get, set},
+keywordstyle=\color{bluekeywords},
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small,
+numbers=left, 
+}
 % vyznaceni odstavcu
 \parindent=0pt
 \parskip=11pt
