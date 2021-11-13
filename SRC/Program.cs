@@ -43,7 +43,7 @@ namespace semestralka_konsole
                 {
                     n = uint.Parse(Console.ReadLine());
                     //Stanovení podminky počtu opakovani
-                    if (n > 1000)
+                    if (n > 10000000)
                     {
                         //Upozorni uzivatele na spatny vstup
                         Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
@@ -55,13 +55,14 @@ namespace semestralka_konsole
 
                 catch (Exception e)
                 {
-                    Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
+                    Console.WriteLine("Zadejte prosím celé kladné číslo menší než 10 000 000");
                 }
             }
             while (pokracovat);
             //Provedeni funkce pro uzivatelem zadany pocet iteraci a zaokrouhleni na 8 desetinnych mist
             pi = Math.Round(VypocitejPi(n), 8);
             Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, pi);
+            Console.WriteLine("Pro ukončení programu stiskněte libovolnou klávesu.");
             Console.ReadKey();
         }
     }
