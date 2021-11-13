@@ -27,16 +27,41 @@
 	
 	\chapter{Teoretická část}
 	\pagestyle{fancy}
-	
-	\section{Úvod}
-	Ludolfovo číslo patří do množiny iracionálních čísel, nelze jej tedy vyjádřit jako podíl dvou celých čísel. 
-	
-	
+		
 	\section{Zadání úlohy}
 	Určete hodnotu Ludolfova čísla pomocí řady, kterou navrhl James Gregory.
 	
+	\section{Úvod}
+	Snahy o~stanovení hodnoty čísla $\pi$ sahají hluboko do historie. Jednou z~mnoha možností je vyjádření Ludolfova čísla pomocí Maclaurinova rozvoje funkce $\arctan(x)$. Za objevitele této řady bývá považován skotský matematik James Gregory, který ji objevil v~polovině 17.století. Nezávisle na Gregorym dospěl k~stejné řadě také  Gottfried W. 
+    Leibniz, proto také bývá někdy označována jako Leibnizova nebo Gregory-Leibniz řada.
+    
+    $$\arctan(x) = x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+\frac{x^9}{9}...$$
+    
+    Dosazením $x = 1$ získáme funkční hodnotu funkce $\arctan(1)=\frac{\pi}{4}$. Pokud tyto úpravy provedeme pro celou řadu, získáme pro aproximaci čísla $\pi$ následující vztah:
+    $$\frac{\pi}{4}=1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}...$$
+    $$\pi=4\left(1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}...\right)$$
+    
+    Tato řada konverguje ke skutečné hodnotě čísla $\pi$ velmi pomalu, pro určení čísla s~přesností na dvě desetinná místa musíme provést téměř 300 iterací\footnote{\url{https://web.archive.org/web/20071128201346/http://www.scm.org.co/Articulos/832.pdf}}. Tato vlastnost je je citelná zejména pro ruční výpočty, které musel Gregory provádět.
+    
+    Z~této řady vychází další myšlenky pro stanovení čísla $\pi$. Zrychlení konvergence řady navrhl Abraham Sharp, který dosadil hodnotu $x=\sqrt{\frac{1}{3}}$. Tímto způsobem následně získal hodnotu čísla na 72 platných cifer.
+	
+
 	\chapter{Implementace}
 	\section{Postup řešení}
+	Pro součet této řady byla vytvořena metoda nazvaná VypocitejPi. Vstupní parametr je počet iterací (členů řady), pro které se má stanovit hodnota $\pi$. Parametr je datového typu uint, protože se jedná o~celé kladné číslo. Návratovou hodnotou je stanovený výsledek čísla $\pi$ datového typu decimal.
+	
+	V~metodě je využito pomocné proměnné \uv{pomocna}, která zaznamenává hodnotu zlomku. Následně je v~programu rozhodovací logika, která buď hodotu zlomku přičte nebo odečte od hodnoty proměnné \uv{soucet}. Pro liché zlomky je znaménko kladné, pro sudé záporné. 
+	
+	Dále je v~programu ošetřován uživatelův vstup \uv{n}, který označuje počet iterací. Ten byl zadáním omezen na 1000, stejně jako zaokrouhlení výstupu na 8 desetinných míst. V~programu je dále použitá pomocná proměnná \uv{pokracovat}, slopuží k~opakování načtení vstupu v~případě špatně zadaného vstupu (do-while cyklus).
+	
+	\subsection{Časová složitost algoritmu}
+	Program obsahuje pouze jeden for cyklus, který se provádí n krát v~závislosti na délce uživatelova vstupu. Algoritmus tedy spadá do časové složitosti $\mathcal{O}(n)$.
+	
+	\section{Použitý software}
+	Pro tvorbu dokumentace bylo využito prostře online \LaTeX editoru Overleaf. Jako podklad byla využita šablona k~maturitní práci Gymnázia Jana Keplera, která byla graficky upravena.
+	
+	Programování samotné aplikace probíhalo ve vývojovém prostředí Visual Studio 2017 od společnosti Microsoft. Změny na projektu byly průběžně zaznamenávány verzovacím systémem Git a následně vkládány na server Github. Odkaz na repozitář: \url{https://github.com/aulichv/pi_Gregory.git}.
+	
 	\section{Zdrojový kód}
         \begin{lstlisting}[caption=Výsledný zdrojový kód]
         using System;
@@ -50,11 +75,11 @@
             class Program
             {
                 /// <summary>
-                /// Metoda, která pomocí řady Jamese Gregoryho
-                /// stanový hodnotu Ludolfova čísla.
+                /// Metoda, ktera pomoci rady Jamese Gregoryho
+                /// stanovy hodnotu Ludolfova cisla.
                 /// </summary>
-                /// <param name="n">Počet iterací (členů řady)</param>
-                /// <returns>Hodnota pi datového typu decimal</returns>
+                /// <param name="n">Pocet iteraci (clenů rady)</param>
+                /// <returns>Hodnota pi datoveho typu decimal</returns>
                 public static decimal VypocitejPi(uint n)
                 {
                     decimal soucet = 0;
@@ -63,10 +88,10 @@
                     {
         
                         pomocna = 4m / (1 + (2 * i));
-                        //Pro sudé koeficienty
+                        //Pro sude koeficienty
                         if (i % 2 == 0)
                             soucet += pomocna;
-                        //Pro liché koeficienty
+                        //Pro liche koeficienty
                         else
                             soucet -= pomocna;
                     }
@@ -76,37 +101,66 @@
                 {
                     bool pokracovat = true;
                     uint n = 0;
+                    decimal pi = 0;
                     do
                     {
                         Console.WriteLine("Zadejte počet iterací:");
                         try
                         {
                             n = uint.Parse(Console.ReadLine());
-                            pokracovat = false;
+                            //Stanovení podminky počtu opakovani
+                            if (n > 1000)
+                            {
+                                //Upozorni uzivatele na spatny vstup
+                                Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
+                            }
+                            else
+                                //Spravna hodnota n, ukonci smycku a vypocte pi
+                                pokracovat = false;
                         }
+        
                         catch (Exception e)
                         {
-                            Console.WriteLine("Zadejte prosím celé kladné číslo menší než  4 294 967 295");
-        
+                            Console.WriteLine("Zadejte prosím celé kladné číslo menší než 1 000");
                         }
                     }
                     while (pokracovat);
-                    //Provedení funkce pro uživatelem zadaný počet iterací
-                    Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, VypocitejPi(n));
+                    //Provedeni funkce pro uzivatelem zadany pocet iteraci a zaokrouhleni na 8 desetinnych mist
+                    pi = Math.Round(VypocitejPi(n), 8);
+                    Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, pi);
                     Console.ReadKey();
                 }
             }
         }
+
         \end{lstlisting}
 	\section{Ukázka programu}
+	\begin{figure}[h!]
+			\centering
+			\includegraphics[width=1\hsize]{img/spusteni.png}
+			\caption{Obrazovka po spuštění programu}
+		\end{figure}
+		
+	\begin{figure}[h!]
+			\centering
+			\includegraphics[width=1\hsize]{img/spusteni_chybny_vstup.png}
+			\caption{Hláška programu při špatném uživatelském vstupu}
+		\end{figure}
+		
+	\begin{figure}[h!]
+			\centering
+			\includegraphics[width=1\hsize]{img/spusteni_vysledek.png}
+			\caption{Výstup programu pro zadaný počet iterací}
+		\end{figure}
+	
 	\chapter*{Závěr}
 	\pagestyle{empty}
 	\addcontentsline{toc}{chapter}{Závěr}
-	Při práci na projektu jsem se dozvěděl mnoho zajímavostí o historii čísla $\pi$. Zejména o jeho významu v matematice a snahách o stanovení jeho hodnoty. 
+	Při práci na projektu jsem se dozvěděl mnoho zajímavostí o~historii čísla $\pi$. Zejména o~jeho významu v~matematice a snahách o~stanovení jeho hodnoty. 
 	
-	Dále jsem rozšířil své znalosti o sázení zdrojového kódu v sázecím jazyce \LaTeX. Původně jsem kód vykresloval pomocí balíčku verbatim, u toho se mi však nepovedlo nastvit kód podle mých představ. Nakonec jsem tedy použil balíček \uv{listings}. U něj jsem narážel na problémy s kódem obsahujícím diakritiku.
+	Dále jsem rozšířil své znalosti o~sázení zdrojového kódu v~sázecím jazyce \LaTeX. Původně jsem kód vykresloval pomocí balíčku verbatim, u~toho se mi však nepovedlo nastvit kód podle mých představ. Nakonec jsem tedy použil balíček \uv{listings}. U~něj jsem narážel na problémy s~kódem obsahujícím diakritiku.
 	
-	K tvorbě dokumentace jsem využíval webový nástroj Overleaf a jednotlivé verze jsem verzoval v repozitáři umístěném na serveru Github. Nové zkušenosti jsem získal i přizpůsobením si vývojového prostředí Visual Studio.
+	K~tvorbě dokumentace jsem využíval webový nástroj Overleaf a jednotlivé verze jsem verzoval v~repozitáři umístěném na serveru Github. Nové zkušenosti jsem získal i přizpůsobením si vývojového prostředí Visual Studio.
 	
 	Práci na projektu považuji za přínosnou, domnívám se, že jsem zadání splnil.
 
@@ -118,6 +172,7 @@
 	\nocite{wiki:pi}
 	\nocite{zvyrazneni_kodu}
 	\nocite{clisting}
+	\nocite{aproximace_pi}
 	\printbibliography[title={Seznam použité literatury},heading={bibintoc}]
 	
 	%%% Seznam obrázků
@@ -127,9 +182,8 @@
 	
 	%%% Seznam tabulek
 	\clearpage
-	\listoftables
 	\lstlistoflistings
-	\addcontentsline{toc}{chapter}{Seznam tabulek}
+
 	
 	%%% Přílohy k práci, existují-li. Každá příloha musí být alespoň jednou
 	%%% odkazována z vlastního textu práce. Přílohy se číslují.
