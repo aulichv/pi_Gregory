@@ -29,7 +29,7 @@
 	\pagestyle{fancy}
 	
 	\section{Úvod}
-	
+	Ludolfovo číslo patří do množiny iracionálních čísel, nelze jej tedy vyjádřit jako podíl dvou celých čísel. 
 	
 	
 	\section{Zadání úlohy}
@@ -38,75 +38,78 @@
 	\chapter{Implementace}
 	\section{Postup řešení}
 	\section{Zdrojový kód}
-\begin{verbatim}
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace semestralka_konsole
-{
-    class Program
-    {
-        /// <summary>
-        /// Metoda, která pomocí řady Jamese Gregoryho
-        /// stanový hodnotu Ludolfova čísla.
-        /// </summary>
-        /// <param name="n">Počet iterací (členů řady)</param>
-        /// <returns>Hodnota pi datového typu decimal</returns>
-        public static decimal VypocitejPi(uint n)
+        \begin{lstlisting}[caption=Výsledný zdrojový kód]
+        using System;
+        using System.Collections.Generic;
+        using System.Linq;
+        using System.Text;
+        using System.Threading.Tasks;
+        
+        namespace semestralka_konsole
         {
-            decimal soucet = 0;
-            decimal pomocna = 0;
-            for (int i = 0; i < n; i++)
+            class Program
             {
-
-                pomocna = 4m / (1 + (2 * i));
-                //Pro sudé koeficienty
-                if (i % 2 == 0)
-                    soucet += pomocna;
-                //Pro liché koeficienty
-                else
-                    soucet -= pomocna;
-            }
-            return soucet;
-        }
-        static void Main(string[] args)
-        {
-            bool pokracovat = true;
-            uint n = 0;
-            do
-            {
-                Console.WriteLine("Zadejte počet iterací:");
-                try
+                /// <summary>
+                /// Metoda, která pomocí řady Jamese Gregoryho
+                /// stanový hodnotu Ludolfova čísla.
+                /// </summary>
+                /// <param name="n">Počet iterací (členů řady)</param>
+                /// <returns>Hodnota pi datového typu decimal</returns>
+                public static decimal VypocitejPi(uint n)
                 {
-                    n = uint.Parse(Console.ReadLine());
-                    pokracovat = false;
+                    decimal soucet = 0;
+                    decimal pomocna = 0;
+                    for (int i = 0; i < n; i++)
+                    {
+        
+                        pomocna = 4m / (1 + (2 * i));
+                        //Pro sudé koeficienty
+                        if (i % 2 == 0)
+                            soucet += pomocna;
+                        //Pro liché koeficienty
+                        else
+                            soucet -= pomocna;
+                    }
+                    return soucet;
                 }
-                catch (Exception e)
+                static void Main(string[] args)
                 {
-                    Console.WriteLine("Zadejte prosím celé kladné číslo menší než  4 294 967 295");
-
+                    bool pokracovat = true;
+                    uint n = 0;
+                    do
+                    {
+                        Console.WriteLine("Zadejte počet iterací:");
+                        try
+                        {
+                            n = uint.Parse(Console.ReadLine());
+                            pokracovat = false;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Zadejte prosím celé kladné číslo menší než  4 294 967 295");
+        
+                        }
+                    }
+                    while (pokracovat);
+                    //Provedení funkce pro uživatelem zadaný počet iterací
+                    Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, VypocitejPi(n));
+                    Console.ReadKey();
                 }
             }
-            while (pokracovat);
-            //Provedení funkce pro uživatelem zadaný počet iterací
-            Console.WriteLine("Hodnota Ludolfova čísla pro {0} iterací je {1}", n, VypocitejPi(n));
-            Console.ReadKey();
         }
-    }
-}
-\end{verbatim}
+        \end{lstlisting}
 	\section{Ukázka programu}
 	\chapter*{Závěr}
 	\pagestyle{empty}
 	\addcontentsline{toc}{chapter}{Závěr}
+	Při práci na projektu jsem se dozvěděl mnoho zajímavostí o historii čísla $\pi$. Zejména o jeho významu v matematice a snahách o stanovení jeho hodnoty. 
 	
+	Dále jsem rozšířil své znalosti o sázení zdrojového kódu v sázecím jazyce \LaTeX. Původně jsem kód vykresloval pomocí balíčku verbatim, u toho se mi však nepovedlo nastvit kód podle mých představ. Nakonec jsem tedy použil balíček \uv{listings}. U něj jsem narážel na problémy s kódem obsahujícím diakritiku.
 	
-	Závěr obsahuje shrnutí práce a vyjadřuje se k~míře splnění jejího zadání. Dále by se zde mělo objevit sebehodnocení studenta a informace o~tom, co nového se naučil a jak vnímal svou práci na projektu.
+	K tvorbě dokumentace jsem využíval webový nástroj Overleaf a jednotlivé verze jsem verzoval v repozitáři umístěném na serveru Github. Nové zkušenosti jsem získal i přizpůsobením si vývojového prostředí Visual Studio.
 	
-	
+	Práci na projektu považuji za přínosnou, domnívám se, že jsem zadání splnil.
+
 	%%% Seznam použité literatury
 	\nocite{dokumentace}
 	\nocite{medium}
@@ -114,6 +117,7 @@ namespace semestralka_konsole
 	\nocite{Historie_pi}
 	\nocite{wiki:pi}
 	\nocite{zvyrazneni_kodu}
+	\nocite{clisting}
 	\printbibliography[title={Seznam použité literatury},heading={bibintoc}]
 	
 	%%% Seznam obrázků
@@ -124,6 +128,7 @@ namespace semestralka_konsole
 	%%% Seznam tabulek
 	\clearpage
 	\listoftables
+	\lstlistoflistings
 	\addcontentsline{toc}{chapter}{Seznam tabulek}
 	
 	%%% Přílohy k práci, existují-li. Každá příloha musí být alespoň jednou
