@@ -100,15 +100,24 @@ numbers=left,
 
 % nastavení hlavy a paty stránek
 \fancyhf{}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\fancyhead[RO,LE]{\leftmark}
-\fancyfoot[RO,LE]{\thepage}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\fancyhead[L]{\leftmark}
+\fancyhead[C]{\AutorPrace, \Kruh}
+\fancyfoot[R]{\thepage}
+\fancyhead[L]{ÚPA semestrální práce}
+\fancyhead[R]{\today}
 %\renewcommand{\footrulewidth}{0pt}
-\fancypagestyle{plain}{%
-\fancyhf{} % clear all header and footer fields
-\fancyfoot[RO,LE]{\thepage}
-\renewcommand{\headrulewidth}{0pt}
+%\fancypagestyle{plain}{%
+%\fancyhf{} % clear all header and footer fields
+%\fancyfoot[R]{\thepage}
+%\renewcommand{\headrulewidth}{0pt}
 %\renewcommand{\footrulewidth}{0.5pt}
+%}
+\fancypagestyle{plain}{
+\fancyhead[C]{\AutorPrace, \Kruh}
+\fancyhead[R]{\today}
+\fancyfoot[R]{\thepage}
+\fancyhead[L]{ÚPA semestrální práce}
 }
 
 % Tato makra přesvědčují mírně ošklivým trikem LaTeX, aby hlavičky kapitol
